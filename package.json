@@ -2,6 +2,7 @@
   "name": "scheduler",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://myname.github.io/scheduler",
   "devDependencies": {
     "react-scripts": "0.8.5"
   },

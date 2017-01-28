@@ -1,6 +1,6 @@
-# Readit
+# Scheduler
 
-[live](https://charleswcho.github.io/readit/)
+[live](https://charleswcho.github.io/scheduler/)
 
 ## Installation
 
