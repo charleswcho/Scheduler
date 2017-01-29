@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import ScheduleTable from './ScheduleTable'
 import InputTime from './InputTime'
 
-import { isConflicting } from './utils'
+import { isConflicting, sortSchedule, formatSchedule } from './utils'
 
 import './App.css';
 
@@ -11,47 +11,44 @@ class App extends Component {
   state = {
     start: '10:15',
     end: '12:00',
-    schedule: [['12:00', '13:00']],
-    err: ''
+    schedule: [['12:00', '13:00']]
   }
 
   handleChange = (e) => {
-    const { name, value } = e.target
-
-    this.setState({ [name]: value });
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   handleSubmit = (e) => {
     const { start, end, schedule } = this.state
 
-    let shift = [start, end],
-        badRange = isConflicting(shift, schedule)
+    const shift = [start, end],
+          newState = { start: '', end: '', schedule: [...schedule] }
 
-    if (badRange) {
+    if (!start || !end || isConflicting(shift, schedule)) {
       alert('Invalid shift inputed')
     } else {
-      let newState = {...this.state}
-
       newState.schedule.push(shift)
-
-      this.setState(newState)
+      // After adding new shift we sort the schedule
+      sortSchedule(newState.schedule)
     }
+
+    this.setState(newState)
   }
 
   render() {
-    const { start, end } = this.state
+    const { start, end, schedule } = this.state
+
+    const formated = formatSchedule(schedule)
 
     return (
       <div className="App">
         <h1>Scheduler</h1>
 
-        { ScheduleTable(this.state.schedule) }
+        { ScheduleTable(formated) }
 
-        <InputTime
-          start={start}
-          end={end}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}/>
+        <InputTime start={start} end={end}
+                   handleChange={this.handleChange}
+                   handleSubmit={this.handleSubmit}/>
       </div>
     );
   }

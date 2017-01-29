@@ -1,3 +1,18 @@
 .App {
+  font-family: helvetica;
   text-align: center;
+}
+
+h1 {
+  color: white;
+  padding: 20px 0 20px 20px;
+  margin: 0;
+  font-weight: 300;
+  background-color: #00BCD4
+}
+
+input {
+  height: 20px;
+  font-size: 12px;
+  padding-left: 15px;
 }
