@@ -11,8 +11,10 @@ class InputTime extends Component {
 
     return (
       <div>
-        <input name='start' type='time' style={style} value={start} onChange={handleChange}/>
-        <input name='end' type='time' style={style} value={end} onChange={handleChange}/>
+        <input name='start' type='time' style={style} value={start} 
+               onChange={handleChange}/>
+        <input name='end' type='time' style={style} value={end}
+               onChange={handleChange}/>
 
         <RaisedButton label='Submit' primary={true} style={style}
                       onClick={handleSubmit}/>
