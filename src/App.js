@@ -20,7 +20,7 @@ class App extends Component {
 
   handleSubmit = (e) => {
     const { start, end, schedule } = this.state
-
+    // On submit clear the inputs and create a copy of the schedule
     const shift = [start, end],
           newState = { start: '', end: '', schedule: [...schedule] }
 
@@ -37,14 +37,14 @@ class App extends Component {
 
   render() {
     const { start, end, schedule } = this.state
-
-    const formated = formatSchedule(schedule)
+    // Change scheule from 24 hour format to 12 hour AM/PM
+    const formatted = formatSchedule(schedule)
 
     return (
       <div className="App">
         <h1>Scheduler</h1>
 
-        { ScheduleTable(formated) }
+        { ScheduleTable(formatted) }
 
         <InputTime start={start} end={end}
                    handleChange={this.handleChange}

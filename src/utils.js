@@ -17,26 +17,26 @@ const timeToNumber = (shift) => {
 }
 
 /**
- * Converts shifts to time format
+ * Converts shifts to 12 Hour time format
  * @function
  * @param {Array.<Array>} schedule - An array of shifts
- * @return {Array.<Array>} - An array of shifts in time format
+ * @return {Array.<Array>} - An array of shifts in 12 Hour time format
  */
 
-export const formatSchedule = (schedule) => {
-  return schedule.map(shiftStrArr => {
-    return shiftStrArr.map(shiftStr => {
-      let shiftStrArr = shiftStr.split(':'),
-          shiftHoursNum = parseInt(shiftStrArr[0], 10)
+export const formatSchedule = (schedule) => {          // [['12:00', '13:00']]
+  return schedule.map(shiftStrArr => {                 // ['12:00', '13:00']
+    return shiftStrArr.map(shiftStr => {               // '12:00' -> '13A:00'
+      let shiftStrArr = shiftStr.split(':'),           // ['12','00'] -> ['13','00']
+          shiftHoursNum = parseInt(shiftStrArr[0], 10) // 12 -> 13
 
       if (shiftHoursNum < 12) {
         return shiftStr + ' AM'
-      } else if (shiftHoursNum === 12) {
+      } else if (shiftHoursNum === 12) {               // '12:00 PM'
         return shiftStr + ' PM'
       } else {
-        shiftHoursNum -= 12
-        shiftStrArr[0] = shiftHoursNum.toString()
-        return shiftStrArr.join(':') + ' PM'
+        shiftHoursNum -= 12                            // '1'
+        shiftStrArr[0] = shiftHoursNum.toString()      // ['1', '00']
+        return shiftStrArr.join(':') + ' PM'           // '1:00 PM'
       }
     })
   })
