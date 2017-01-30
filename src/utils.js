@@ -1,31 +1,31 @@
 /**
- * Converts string time to decimal time
+ * Converts shift times from string to decimal
  * @function
- * @param {string} time - The time in string form '10:15'
- * @return {number} - The time in decmial form 10.25
+ * @param {Array.<string>} shift - The shift times in string form
+ * @return {Array.<number>} - The shift times in decmial form
  */
 
-const timeToNumber = (shift) => {
-  return shift.map(time => {
-    let timeArr = time.split(':')
+const timeToNumber = (shift) => {               // ['10:15', '12:00']
+  return shift.map(time => {                    // '10:15' -> '12:00'
+    let timeArr = time.split(':')               // ['10','15'] -> ['12','00']
 
-    timeArr[1] = parseInt(timeArr[1], 10) / 60
-    timeArr[1] = timeArr[1].toString().slice(1)
+    timeArr[1] = parseInt(timeArr[1], 10) / 60  // ['10', 0.25] -> ['12', 0]
+    timeArr[1] = timeArr[1].toString().slice(1) // ['10', '.25'] -> ['12', '']
 
-    return parseFloat(timeArr.join(''))
+    return parseFloat(timeArr.join(''))         // 10.25 -> 12
   })
 }
 
 /**
- * Converts shifts to 12 Hour time format
+ * Converts shifts from 24 Hour to 12 Hour time format
  * @function
- * @param {Array.<Array>} schedule - An array of shifts
+ * @param {Array.<Array>} schedule - An array of shifts in 24 Hour time format
  * @return {Array.<Array>} - An array of shifts in 12 Hour time format
  */
 
 export const formatSchedule = (schedule) => {          // [['12:00', '13:00']]
   return schedule.map(shiftStrArr => {                 // ['12:00', '13:00']
-    return shiftStrArr.map(shiftStr => {               // '12:00' -> '13A:00'
+    return shiftStrArr.map(shiftStr => {               // '12:00' -> '13:00'
       let shiftStrArr = shiftStr.split(':'),           // ['12','00'] -> ['13','00']
           shiftHoursNum = parseInt(shiftStrArr[0], 10) // 12 -> 13
 
@@ -43,7 +43,7 @@ export const formatSchedule = (schedule) => {          // [['12:00', '13:00']]
 }
 
 /**
- * Sorts schedule by earlier or later shifts
+ * Sorts schedule by earlier to later shifts
  * @function
  * @param {Array.<Array>} schedule - An array of shifts
  */
