@@ -1,26 +1,33 @@
-import React, { Component } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import React from 'react';
+
+import Button from '@material-ui/core/Button';
 
 const style = {
   margin: 12
 };
 
-class InputTime extends Component {
-  render() {
-    const { start, end, handleChange, handleSubmit } = this.props
+const InputTime = ({ start, end, handleChange, handleSubmit }) => (
+  <div>
+    <input
+      name="start"
+      type="time"
+      style={style}
+      value={start}
+      onChange={handleChange}
+    />
 
-    return (
-      <div>
-        <input name='start' type='time' style={style} value={start} 
-               onChange={handleChange}/>
-        <input name='end' type='time' style={style} value={end}
-               onChange={handleChange}/>
+    <input
+      name="end"
+      type="time"
+      style={style}
+      value={end}
+      onChange={handleChange}
+    />
 
-        <RaisedButton label='Submit' primary={true} style={style}
-                      onClick={handleSubmit}/>
-      </div>
-    );
-  }
-}
+    <Button variant="contained" color="primary" onClick={handleSubmit}>
+      Submit
+    </Button>
+  </div>
+);
 
 export default InputTime;

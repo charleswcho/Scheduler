@@ -1,27 +1,42 @@
 import React from 'react';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import PropTypes from 'prop-types';
 
-const Shift = ([start, end], idx) => (
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell
+} from '@material-ui/core';
+
+const Shift = ({ idx, shift: [start, end] }) => (
   <TableRow key={idx}>
-    <TableRowColumn>{idx + 1}</TableRowColumn>
-    <TableRowColumn>{start}</TableRowColumn>
-    <TableRowColumn>{end}</TableRowColumn>
+    <TableCell>{idx + 1}</TableCell>
+    <TableCell>{start}</TableCell>
+    <TableCell>{end}</TableCell>
   </TableRow>
-)
+);
 
-const ScheduleTable = (schedule) => (
-  <Table fixedHeader={true} selectable={false} multiSelectable={false}>
-    <TableHeader displaySelectAll={false} adjustForCheckbox={false} enableSelectAll={false}>
+const ScheduleTable = ({ schedule }) => (
+  <Table>
+    <TableHead>
       <TableRow>
-        <TableHeaderColumn>Shift</TableHeaderColumn>
-        <TableHeaderColumn>Start</TableHeaderColumn>
-        <TableHeaderColumn>End</TableHeaderColumn>
+        <TableCell>Shift</TableCell>
+        <TableCell>Start</TableCell>
+        <TableCell>End</TableCell>
       </TableRow>
-    </TableHeader>
-    <TableBody displayRowCheckbox={false}>
-      {schedule.map((shift, idx) => Shift(shift, idx))}
+    </TableHead>
+    <TableBody>
+      {schedule.map((shift, idx) => (
+        <Shift key={idx} idx={idx} shift={shift} />
+      ))}
     </TableBody>
   </Table>
 );
+
+ScheduleTable.propTypes = {
+  schedule: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string.isRequired))
+    .isRequired
+};
 
 export default ScheduleTable;
