@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
 
@@ -29,5 +30,12 @@ const InputTime = ({ start, end, handleChange, handleSubmit }) => (
     </Button>
   </div>
 );
+
+InputTime.propTypes = {
+  start: PropTypes.string.isRequired,
+  end: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired
+};
 
 export default InputTime;
